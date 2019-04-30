@@ -10,7 +10,7 @@ const tap = require('gulp-tap');
 const PROJECT_ROOT = ".";
 const DIST_DIR = `${PROJECT_ROOT}/dist`;
 const OUTPUT_FILE_NAME = 'lambda1.zip';
-const DELIVERY_DIR = "${PROJECT_ROOT}/deliverable";
+const DELIVERY_DIR = `${PROJECT_ROOT}/deliverable`;
 
 gulp.task('clean-dist', () => {
   return del.sync(DIST_DIR);
@@ -58,8 +58,8 @@ gulp.task('zipIt', () => {
   let fileMode = parseInt('100644', 8);
   return gulp.src(`${DIST_DIR}/**/*`)
          .pipe(tap((file) => {
-            if (file.stat.isDirectory() {
-              file.state.mode = dirMode;
+            if (file.stat.isDirectory()) {
+              file.stat.mode = dirMode;
             } else {
               file.stat.mode = fileMode;
             }

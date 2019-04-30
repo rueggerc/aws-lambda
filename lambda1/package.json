@@ -4,7 +4,7 @@
   "description": "Lambda POC",
   "main": "index.js",
   "scripts": {
-    "test": "node modules/.bin/mocha -t 1000 --reporter spec --ui bdd test",
+    "test": "node_modules/.bin/mocha -t 1000 --reporter spec --ui bdd test",
     "test-main": "node test/emulate-lambda.js",
     "build": "node_modules/.bin/gulp build",
     "deploy": "node build/upload-to-aws",
