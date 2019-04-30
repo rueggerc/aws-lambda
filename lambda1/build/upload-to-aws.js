@@ -4,7 +4,8 @@ const AWS = require('aws-sdk');
 const fs = require('fs');
 const minimist = require('minimist');
 const utils = require('../lib/utils');
-const FUNCTION_NAME = "AWS_lambda1";
+const FUNCTION_NAME = "OrderService";
+
 
 const VALID_ENVIRONMENTS = ['dev','prod'];
 let options = minimist(process.argv.slice(2), knownOptions);
