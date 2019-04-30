@@ -1,0 +1,33 @@
+{
+  "name": "lambda1",
+  "version": "1.0.0",
+  "description": "Lambda POC",
+  "main": "index.js",
+  "scripts": {
+    "test": "node modules/.bin/mocha -t 1000 --reporter spec --ui bdd test",
+    "test-main": "node test/emulate-lambda.js",
+    "build": "node_modules/.bin/gulp build",
+    "deploy": "node build/upload-to-aws",
+    "build-and-deploy": "npm run build build && npm run deploy"
+  },
+  "author": "Chris",
+  "license": "ISC",
+  "devDependencies": {
+    "aws-sdk": "^2.133.0",
+    "del": "^2.2.2",
+    "gulp": "^3.9.1",
+    "gulp-babel": "^6.1.3",
+    "gulp-rename": "^1.3.0",
+    "gulp-tap": "^0.1.3",
+    "gulp-zip": "^3.2.0",
+    "jsdoc": "^3.5.5",
+    "minimist": "^1.2.0",
+    "mocha": "^3.5.3",
+    "run-sequence": "^1.2.2"
+  },
+  "dependencies": {
+    "dotenv": "^7.0.0",
+    "jsonschema": "^1.2.0",
+    "postgres-uno": "^1.1.2"
+  }
+}
