@@ -8,8 +8,9 @@ const zip = require('gulp-zip');
 const tap = require('gulp-tap');
 
 const PROJECT_ROOT = ".";
+const SERVICE_NAME="OrderService";
 const DIST_DIR = `${PROJECT_ROOT}/dist`;
-const OUTPUT_FILE_NAME = 'lambda1.zip';
+const OUTPUT_FILE_NAME = `${SERVICE_NAME}.zip`;
 const DELIVERY_DIR = `${PROJECT_ROOT}/deliverable`;
 
 gulp.task('clean-dist', () => {

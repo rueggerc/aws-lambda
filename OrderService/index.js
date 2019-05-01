@@ -4,7 +4,7 @@ const parseArgs = require('minimist');
 const dotenv = require('dotenv');
 
 module.exports.handler = (event,context,callback) => {
-  console.log("Start Lambda");
+  console.log("OrderService BEGIN");
   asyncHandler(event,context,callback).then();
 };
 
