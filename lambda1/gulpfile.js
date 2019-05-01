@@ -42,6 +42,14 @@ gulp.task('copyLibFiles', () => {
   ).pipe(gulp.dest(`${DIST_DIR}/lib`));
 });
 
+gulp.task('copyModulesFiles', () => {
+  return gulp.src(
+    [
+      `${PROJECT_ROOT}/node_modules/**`
+    ]
+  ).pipe(gulp.dest(`${DIST_DIR}/node_modules`));
+});
+
 gulp.task('clean', () => {
   runSequence(
     'clean-dist',
@@ -81,6 +89,7 @@ gulp.task('build', async () => {
     'clean',
     'copyBaseFiles',
     'copyLibFiles',
+    'copyModulesFiles',
     'zipIt',
     'done'
   );
