@@ -1,0 +1,14 @@
+{
+  "name": "lambafacade",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "author": "Chris Ruegger",
+  "license": "ISC",
+  "dependencies": {
+    "aws-sdk": "^2.448.0"
+  }
+}

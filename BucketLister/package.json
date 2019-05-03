@@ -1,0 +1,14 @@
+{
+  "name": "bucketlister",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "node emulate.js"
+  },
+  "author": "Chris",
+  "license": "ISC",
+  "dependencies": {
+    "aws-sdk": "^2.448.0"
+  }
+}

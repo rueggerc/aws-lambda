@@ -7,6 +7,8 @@ yarn-error.log*
 
 **/deliverable/**
 **/dist/**
+**/node_modules/**
+
 
 
 # Runtime data
