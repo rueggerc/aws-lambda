@@ -14,7 +14,7 @@ module.exports.asyncHandler = async (event,context,callback) => {
   const rootSubSegment = AWSXRay.getSegment().addNewSubsegment("sensors-RootSubSegment");
 
   try {
-    // console.log("EVENT=\n" + JSON.stringify(event,null,4));
+    console.log("EVENT=\n" + JSON.stringify(event,null,4));
 
     let bucketInfo= utils.getBucketInfo();
     // let payloadForS3 = utils.getPayloadForS3(event);
