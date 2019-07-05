@@ -18,7 +18,9 @@ module.exports.asyncHandler = async (event,context,callback) => {
     console.log("EVENT=\n" + JSON.stringify(event,null,4));
 
     // Access DB
+    console.log("ACCESS DB BEGIN");
     dbutils.doDatabaseStuff();
+    console.log("ACCESS DB END");
 
     let bucketInfo= utils.getBucketInfo();
     // let payloadForS3 = utils.getPayloadForS3(event);

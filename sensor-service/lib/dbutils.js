@@ -2,7 +2,11 @@
 const PostgresUno = require('postgres-uno');
 
 module.exports.doDatabaseStuff = function() {
+
+    console.log("DO DATABASE STUFF BEGIN");
+
     let dbConfig = builddbConfig();
+    console.log("DB CONFIG=\n" + dbConfig);
 
     getSensorData(dbConfig)
       .then(function(result) {
