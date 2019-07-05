@@ -2,6 +2,7 @@
 const AWSXRay = require('aws-xray-sdk-core');
 const AWS = AWSXRay.captureAWS(require('aws-sdk'));
 const utils = require("./lib/utils");
+const dbutils = require("./lib/dbutils");
 
 module.exports.handler = (event,context,callback) => {
   console.log("SENSOR-SERVICE BEGIN");
@@ -15,6 +16,9 @@ module.exports.asyncHandler = async (event,context,callback) => {
 
   try {
     console.log("EVENT=\n" + JSON.stringify(event,null,4));
+
+    // Access DB
+    dbutils.doDatabaseStuff();
 
     let bucketInfo= utils.getBucketInfo();
     // let payloadForS3 = utils.getPayloadForS3(event);

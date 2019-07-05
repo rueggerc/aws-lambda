@@ -113,6 +113,19 @@ let event = {
 
 // Environment Variables
 process.env.S3_BUCKET_NAME="myBucket";
+/*
+process.env.DB_HOST = "localhost";
+process.env.DB_USER = "chris";
+process.env.DB_PASSWORD = "dakota";
+process.env.DB_PORT = "5432";
+process.env.DB_DATABASE = "rueggerllc";
+*/
+process.env.DB_HOST = "captain";
+process.env.DB_USER = "chris";
+process.env.DB_PASSWORD = "dakota";
+process.env.DB_PORT = "5432";
+process.env.DB_DATABASE = "rueggerllc";
+
 
 let sandbox = undefined;
 describe ('Test Index', function() {
