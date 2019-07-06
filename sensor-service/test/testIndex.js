@@ -107,24 +107,24 @@ let event = {
         "domainName": "o6vomvulhk.execute-api.us-east-1.amazonaws.com",
         "apiId": "o6vomvulhk"
     },
-    "body": "{\n\t\"sensorID\": 100,\n\t\"temperature\": 42.33,\n\t\"humidity\": 92.11\n}",
+    "body": "{\n\t\"sensorID\": \"sensor1\",\n\t\"notes\": \"Living Room\",\n\t\"temperature\": 72.58,\n\t\"humidity\": 83.24,\n\t\"timestamp\": 1562407277550\n}",
     "isBase64Encoded": false
 };
 
 // Environment Variables
 process.env.S3_BUCKET_NAME="myBucket";
-/*
+
 process.env.DB_HOST = "localhost";
 process.env.DB_USER = "chris";
 process.env.DB_PASSWORD = "dakota";
 process.env.DB_PORT = "5432";
 process.env.DB_DATABASE = "rueggerllc";
-*/
-process.env.DB_HOST = "captain";
-process.env.DB_USER = "chris";
-process.env.DB_PASSWORD = "dakota";
-process.env.DB_PORT = "5432";
-process.env.DB_DATABASE = "rueggerllc";
+
+// process.env.DB_HOST = "captain";
+// process.env.DB_USER = "chris";
+// process.env.DB_PASSWORD = "dakota";
+// process.env.DB_PORT = "5432";
+// process.env.DB_DATABASE = "rueggerllc";
 
 
 let sandbox = undefined;
@@ -170,8 +170,5 @@ describe ('Test Index', function() {
       });
 
   });
-
-
-
 
 });

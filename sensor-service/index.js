@@ -15,14 +15,23 @@ module.exports.asyncHandler = async (event,context,callback) => {
   const rootSubSegment = AWSXRay.getSegment().addNewSubsegment("sensors-RootSubSegment");
 
   try {
+    
     console.log("EVENT=\n" + JSON.stringify(event,null,4));
+
+    let pathParameters = event.pathParameters;
+    if (pathParameters) {
+      console.log("sensor-id in PATH=" + pathParameters['sensor-id']);
+      let sensorID = pathParameters['sensor-id'];
+      rootSubSegment.addAnnotation("sensorID", sensorID);
+    }
 
     // Access DB
     console.log("ACCESS DB BEGIN");
-    dbutils.doDatabaseStuff();
+    let payLoad = JSON.parse(event.body);
+    await dbutils.doDatabaseStuff(payLoad);
     console.log("ACCESS DB END");
 
-    let bucketInfo= utils.getBucketInfo();
+    let bucketInfo = utils.getBucketInfo();
     // let payloadForS3 = utils.getPayloadForS3(event);
     // let s3 = new AWS.S3();
     // const s3SubSegment = AWSXRay.getSegment().addNewSubsegment("sensors-S3SubSegment");
@@ -38,16 +47,20 @@ module.exports.asyncHandler = async (event,context,callback) => {
     // }
 
     let responseText = "sensor1 Written to S3";
+    console.log("RESPONSE TEXT=" + responseText);
 
     // Build Response
     console.log("SUCCESSFUL COMPLETION");
     let message = utils.buildResponse(utils.formatSuccessText(JSON.stringify(responseText)));
+    console.log("MESSAGE=" + JSON.stringify(message,null,2));
     callback && callback(null,message);
   } catch (err) {
     let errorMessage = err.toString();
     console.log("ERROR=\n" + err);
     let message = utils.buildResponse(utils.formatErrorText(errorMessage),500);
     callback && callback(null,message);
+  } finally {
+    rootSubSegment.close();
   }
 
 };

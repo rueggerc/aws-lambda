@@ -1,26 +1,24 @@
 "use strict";
 const PostgresUno = require('postgres-uno');
 
-module.exports.doDatabaseStuff = function() {
+module.exports.doDatabaseStuff = async function(payLoad) {
 
     console.log("DO DATABASE STUFF BEGIN");
-
     let dbConfig = builddbConfig();
-    console.log("DB CONFIG=\n" + dbConfig);
+   
+    // let result = await getSensorData(dbConfig);
+    // let rows = result.rows;
+    // for (let i = 0; i < rows.length; i++) {
+    //     let reading = rows[i];
+    //     console.log(JSON.stringify(reading));
+    // }
 
-    getSensorData(dbConfig)
-      .then(function(result) {
-        console.log("getSensorData Process RESULT="+ result);
-        let rows = result.rows;
-        console.log("ROWS=" + rows);
-        for (let i = 0; i < rows.length; i++) {
-            let temperature = rows[i].temperature;
-            console.log("temperature=" + temperature);
-        }
-      })
-      .catch(function(err) {
-        console.log("getSensorData ERROR=" + result);
-      });
+    // Do Insert
+    if (payLoad) {
+        await insertSensorData(dbConfig,payLoad);
+    }   
+
+    console.log("DO DATABASE STUFF END");
 }
 
 async function getSensorData(dbConfig) {
@@ -28,31 +26,62 @@ async function getSensorData(dbConfig) {
 
         console.log("getSensorData BEGIN");
         let db = new PostgresUno();
-        console.log("DBConfig=\n" + JSON.stringify(dbConfig,null,2));
-        await db.connect(dbConfig);
+        // console.log("DBConfig=\n" + JSON.stringify(dbConfig,null,2));
 
-        let dbQuery = "select * from dht22_readings limit 10";
-        console.log("dbQuery=" + dbQuery);
+        console.log("CONNECT BEGIN");
+        await db.connect(dbConfig);
+        console.log("CONNECT END");
 
         // Query
+        let dbQuery = "select * from dht22_readings limit 10";
         let result = await db.query(dbQuery);
-        // console.log("RESULT=" + JSON.stringify(result.rows));
         let rows = result.rows;
-        // console.log("ROWS=" + rows);
-        console.log("ROWS LENGTH=" + rows.length);
-        // for (let i = 0; i < rows.length; i++) {
-        //     let temperature = rows[i].temperature;
-        //     console.log("temperature=" + temperature);
-        // }
-        // let temperature = result.rows[0].temperature;
-        // console.log("temperature=" + temperature);
 
+    
         // Disconnect
         await db.disconnect();
 
         return result;
 
     } catch (err) {
+        console.log("ERROR=" + err);
+        throw new Error(err);
+    }
+}
+
+async function insertSensorData(dbConfig,payLoad) {
+
+    let db = new PostgresUno();
+    try {
+
+        console.log("insertSensorData BEGIN");
+        console.log("PAYLOAD=\n" + JSON.stringify(payLoad,null,2));
+
+        // console.log("DBConfig=\n" + JSON.stringify(dbConfig,null,2));
+
+        console.log("CONNECT BEGIN");
+        await db.connect(dbConfig);
+        console.log("CONNECT END");
+
+        // INSERT String   
+        let readingTime = Math.floor(payLoad.timestamp/1000);
+        let dbQuery = `
+          insert into dht22_readings
+          (sensor_id, notes, reading_time, temperature, humidity)
+          VALUES ('${payLoad.sensorID}', '${payLoad.notes}', to_timestamp(${readingTime}), ${payLoad.temperature}, ${payLoad.humidity}) 
+          RETURNING id`;
+        let result = await db.query(dbQuery);
+        let id = result.rows[0].id;
+        console.log("ID=" + id);
+
+        // Disconnect
+        await db.disconnect();
+
+        console.log("insertSensorData END");
+
+    } catch (err) {
+        console.log("INSIDE TRY BLOCK");
+        await db.disconnect();
         console.log("ERROR=" + err);
         throw new Error(err);
     }
