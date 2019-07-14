@@ -7,7 +7,7 @@ module.exports.handler = function (event,context,callback) {
 
   console.log("Sensor-Auth-Service BEGIN");
 
-  let policy = null;
+  let response = {};
 
   try {
     
@@ -18,12 +18,16 @@ module.exports.handler = function (event,context,callback) {
     let token = event.authorizationToken;
     let resource = event.methodArn;
 
+    response.principalId = "sensor1";
+    response.context = {stringKey: 'Basic foobar'};
+
     // Get the policy
-    policy = generatePolicy(resource,token);
-    console.log("GOT POLICY=\n" + JSON.stringify(policy));
+    let policyDocument = generatePolicy(resource,token);
+    response.policyDocument = policyDocument;
+    console.log("GOT POLICY=\n" + JSON.stringify(response,null,4));
 
     // Done
-    callback(null, policy);
+    callback(null, response);
 
   } catch (err) {
 
