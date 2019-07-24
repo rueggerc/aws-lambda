@@ -11,6 +11,7 @@ const {exec} = require('child_process');
 
 // Define where files will be place
 const PROJECT_ROOT = ".";
+const SRC_DIR = `${PROJECT_ROOT}/src`
 const DIST_DIR = `${PROJECT_ROOT}/dist`;
 const DELIVERY_DIR = `${PROJECT_ROOT}/deliverable`;
 
@@ -38,25 +39,35 @@ gulp.task('installPackages', (cb) => {
 
 gulp.task('copyCommon', () => {
   return gulp.src(
-    [`${PAREN_DIR}/common.js`]
+    [`${PARENT_DIR}/common.js`]
   )
   .pipe(gulp.dest(DIST_DIR));
 });
 
+// gulp.task('copyBaseFiles', () => {
+//     return gulp.src(
+//       [
+//         `${PROJECT_ROOT}/package.json`,
+//         `${PROJECT_ROOT}/src`,
+//       ]
+//     )
+//     .pipe(gulp.dest(DIST_DIR));
+// });
+
 gulp.task('copyBaseFiles', () => {
-    return gulp.src(
-      [
-        `${PROJECT_ROOT}/package.json`,
-        `${PROJECT_ROOT}/index.js`,
-      ]
-    )
-    .pipe(gulp.dest(DIST_DIR));
+  return gulp.src(
+    [
+      `${PROJECT_ROOT}/package.json`,
+      `${SRC_DIR}/index.js`
+    ]
+  )
+  .pipe(gulp.dest(DIST_DIR));
 });
 
 gulp.task('copyLibs', () => {
   return gulp.src(
     [
-      `${PROJECT_ROOT}/lib/**`
+      `${PROJECT_ROOT}/src/lib/**`
     ]
   ).pipe(gulp.dest(`${DIST_DIR}/lib`));
 });
@@ -64,9 +75,9 @@ gulp.task('copyLibs', () => {
 gulp.task('copyModulesFiles', () => {
   return gulp.src(
     [
-      `${PROJECT_ROOT}/node_modules/**`
+      `${PROJECT_ROOT}/src/node_modules/**`
     ]
-  ).pipe(gulp.dest(`${DIST_DIR}/node_modules`));
+  ).pipe(gulp.dest(`${DIST_DIR}/src/node_modules`));
 });
 
 

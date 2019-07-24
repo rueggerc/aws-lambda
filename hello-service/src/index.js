@@ -14,7 +14,7 @@ module.exports.asyncHandler = async (event,context,callback) => {
   
     // Done
     let data = {
-      msg: "Hello From Ruegger Lambda!"
+      msg: "Hello From Ruegger Lambda After Repackage!"
     };
     let response = {
       statusCode: 200,

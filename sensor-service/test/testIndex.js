@@ -154,7 +154,7 @@ describe ('Test Index', function() {
 
   
 
-  it('Successful Completion', function() {
+  xit('Successful Completion', function() {
 
     let result = undefined;
     let callback = (err,data) => {
@@ -168,6 +168,26 @@ describe ('Test Index', function() {
         console.log("RESULT=\n" + JSON.stringify(result,null,4));
         assert.equal(result.statusCode,200);
       });
+
+  });
+
+    it('Test Destructuring', function() {
+
+        let { foo, bar } = { foo: "lorem", bar: "ipsum" };
+        console.log(foo);
+
+        let row = {
+            sensorID: "sensor1",
+            temperature: 72.99
+        }
+        console.log("row = %j", row);
+        let sensor1 = row;
+        console.log("sensor1 = %j", sensor1);
+
+        let {sensor2} = row;
+        console.log("sensor2 = %j", sensor2);
+
+
 
   });
 

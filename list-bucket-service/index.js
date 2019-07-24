@@ -11,7 +11,6 @@ module.exports.asyncHandler = async function (event,context,callback) {
 
     try {
 
-
         let bucketList = [];
         bucketList.push("bucket1");
         bucketList.push("bucket2");
