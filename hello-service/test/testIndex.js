@@ -23,7 +23,7 @@ describe ('Test Hello Lambda', function() {
   });
 
 
-  it('cksum Posix', function() {
+  xit('cksum Posix', function() {
     let buffer = cksum('SheetJS');
     let thecrc = parseInt(buffer.toString('hex'),16);
     console.log(thecrc);
@@ -32,16 +32,42 @@ describe ('Test Hello Lambda', function() {
     console.log(thecrc);
   });
 
-  xit('CRC32', function() {
+  it('Parse Path', function() {
+    console.log("HERE WE GO");
+    let path = "/rueggerllc/sensors/dev/bucketname";
+    console.log("bucketname=" + getParmName(path));
+  });
 
-    let fileContents = "SheetJS";
-    let foo = crc32.str("SheetJS");
-    console.log(foo);
+ 
+
+  xit('Map Functions', function() {
+
+    try {
+      let map1 = new Map();
+      map1.set("pet1", "Captain");
+      map1.set("pet2", "Norbert");
+      map1.set("pet3", "Birman");
+
+      let pet1 = map1.get("pet1");
+      console.log("PET1=" + pet1);
+
+      for (let nextKey of map1.keys()) {
+        console.log("nextKey=" + nextKey);
+      }
+
+      for (let nextElement of map1.entries()) {
+        console.log("nextElement=" + nextElement);
+      }
+
+
+    } catch (err) {
+      console.log("ERROR: " + err);
+    }
 
   });
 
   
-  it('Successful Completion', function() {
+  xit('Successful Completion', function() {
 
     let result = undefined;
     let callback = (err,data) => {
@@ -57,5 +83,11 @@ describe ('Test Hello Lambda', function() {
       });
 
   });
+
+  function getParmName(path) {
+    let lastSlashPos = path.lastIndexOf("/");
+    let parmName = path.substring(lastSlashPos+1);
+    return parmName;
+  }
 
 });
