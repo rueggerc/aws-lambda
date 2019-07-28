@@ -3,6 +3,8 @@
 const assert = require("chai").assert;
 const sinon = require("sinon");
 const index = require("../src/index");
+const cksum = require('cksum');
+const crc32 = require('crc-32');
 
 let event = {
 };
@@ -18,6 +20,24 @@ describe ('Test Hello Lambda', function() {
   });
 
   after(function() {
+  });
+
+
+  it('cksum Posix', function() {
+    let buffer = cksum('SheetJS');
+    let thecrc = parseInt(buffer.toString('hex'),16);
+    console.log(thecrc);
+
+    thecrc = buffer.readUIntBE(0, 4);
+    console.log(thecrc);
+  });
+
+  xit('CRC32', function() {
+
+    let fileContents = "SheetJS";
+    let foo = crc32.str("SheetJS");
+    console.log(foo);
+
   });
 
   
