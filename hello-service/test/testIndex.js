@@ -23,7 +23,7 @@ describe ('Test Hello Lambda', function() {
   });
 
 
-  xit('cksum Posix', function() {
+  it('cksum Posix', function() {
     let buffer = cksum('SheetJS');
     let thecrc = parseInt(buffer.toString('hex'),16);
     console.log(thecrc);
