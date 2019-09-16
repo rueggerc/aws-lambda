@@ -12,8 +12,8 @@ const {exec} = require('child_process');
 // Define where files will be place
 const PROJECT_ROOT = ".";
 const PARENT_DIR = '..';
-const DIST_DIR = `${PROJECT_ROOT}/dist`;
-const DELIVERY_DIR = `${PROJECT_ROOT}/deliverable`;
+const DIST_DIR = `${PROJECT_ROOT}/get-sensor-data/dist`;
+const DELIVERY_DIR = `${PROJECT_ROOT}/get-sensor-data/deliverable`;
 
 // Output file Name
 const FUNCTION_NAME="SENSOR-SERVICE";
@@ -52,6 +52,16 @@ gulp.task('copyBaseFiles', () => {
       ]
     )
     .pipe(gulp.dest(DIST_DIR));
+});
+
+gulp.task('copySrcFiles', () => {
+  return gulp.src(
+    [
+      `${PROJECT_ROOT}/package.json`,
+      `${PROJECT_ROOT}/get-sensor-data/index.js`,
+    ]
+  )
+  .pipe(gulp.dest(DIST_DIR));
 });
 
 gulp.task('copyLibs', () => {
@@ -105,13 +115,21 @@ gulp.task('clean', () => {
 });
 
 
+// gulp.task('build', async () => {
+//   runSequence(
+//     'clean',
+//     'copyBaseFiles',
+//     'copyLibs',
+//     'installPackages',
+//     'zipIt',
+//     'done'
+//   );
+// });
+
 gulp.task('build', async () => {
   runSequence(
     'clean',
-    'copyBaseFiles',
-    'copyLibs',
-    'installPackages',
-    'zipIt',
+    'copySrcFiles',
     'done'
   );
 });
