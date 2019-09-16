@@ -11,7 +11,9 @@ let event = {
 
 
 // Environment Variables
-
+process.env.AWS_REGION = "us-east-1";
+process.env.DB_PORT = "/rueggerllc/sensors/dev/dbport";
+process.env.DEPLOY_ENV = "dev";
 
 let sandbox = undefined;
 describe ('Test Hello Lambda', function() {
@@ -22,8 +24,25 @@ describe ('Test Hello Lambda', function() {
   after(function() {
   });
 
+  it('Successful Completion', function() {
 
-  it('cksum Posix', function() {
+    let result = undefined;
+    let callback = (err,data) => {
+      console.log("INSIDE CALLBACK");
+      result = data;
+    }
+
+    index.asyncHandler(event,null,callback) 
+      .then(()=>{
+        console.log("THEN INVOKED");
+        console.log("RESULT=\n" + JSON.stringify(result,null,4));
+        assert.equal(result.statusCode,200);
+      });
+
+  });
+
+
+  xit('cksum Posix', function() {
     let buffer = cksum('SheetJS');
     let thecrc = parseInt(buffer.toString('hex'),16);
     console.log(thecrc);
@@ -67,22 +86,7 @@ describe ('Test Hello Lambda', function() {
   });
 
   
-  xit('Successful Completion', function() {
 
-    let result = undefined;
-    let callback = (err,data) => {
-      console.log("INSIDE CALLBACK");
-      result = data;
-    }
-
-    index.asyncHandler(event,null,callback) 
-      .then(()=>{
-        console.log("THEN INVOKED");
-        console.log("RESULT=\n" + JSON.stringify(result,null,4));
-        assert.equal(result.statusCode,200);
-      });
-
-  });
 
   function getParmName(path) {
     let lastSlashPos = path.lastIndexOf("/");
