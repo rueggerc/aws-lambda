@@ -27,7 +27,7 @@
     "dotenv": "^7.0.0",
     "sinon": "^7.3.2",
     "run-sequence": "^1.2.2",
-    "mocha": "^6.2.0",
+    "mocha": "^10.2.0",
     "mocha-sonarqube-reporter": "^1.0.1",
     "nyc": "^14.1.1",
     "sonar-scanner": "^3.1.0",
